@@ -6,6 +6,7 @@ import { useMutation } from "@tanstack/react-query";
 import Modal from "../UI/Modal.jsx";
 import EventForm from "./EventForm.jsx";
 import { createNewEvent } from "../../util/http.js";
+import ErrorBlock from "../UI/ErrorBlock.jsx";
 
 export default function NewEvent() {
   const { mutate, isPending, isError, error } = useMutation({
@@ -32,6 +33,15 @@ export default function NewEvent() {
           </>
         )}
       </EventForm>
+
+      {isError && (
+        <ErrorBlock
+          title="Failed to create event"
+          message={
+            error.info?.message || "Failed to create event, please check your input and try again"
+          }
+        />
+      )}
     </Modal>
   );
 }
