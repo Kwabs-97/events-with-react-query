@@ -44,8 +44,8 @@ export async function fetchSelectableImages({ signal }) {
   const response = await fetch("http://localhost:3000/events/images", { signal });
   if (!response.ok) {
     const error = new Error("Failed to fetch images");
-    error.info = await response.json();
     error.code = response.status;
+    error.info = await response.json();
   }
 
   const { images } = await response.json();
