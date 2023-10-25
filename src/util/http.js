@@ -29,15 +29,25 @@ export async function createNewEvent(eventData) {
     body: JSON.stringify(eventData),
   });
 
-
   if (!response.ok) {
-    const error = new Error('An error occurred while creating a new event'); 
+    const error = new Error("An error occurred while creating a new event");
     error.code = response.status;
     error.info = await response.json();
     throw error;
   }
-  
+
   const { event } = await response.json();
-  return event
+  return event;
 }
 
+export async function fetchSelectableImages({ signal }) {
+  const response = await fetch("http://localhost:3000/events/images", { signal });
+  if (!response.ok) {
+    const error = new Error("Failed to fetch images");
+    error.info = await response.json();
+    error.code = response.status;
+  }
+
+  const { images } = await response.json();
+  return images;
+}
