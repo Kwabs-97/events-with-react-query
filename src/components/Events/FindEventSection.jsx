@@ -10,7 +10,7 @@ import EventItem from "./EventItem";
 export default function FindEventSection() {
   const [searchTerm, setSearchTerm] = useState();
 
-  const { data, isPending, isError, error } = useQuery({
+  const { data, isLoading, isError, error } = useQuery({
     queryKey: ["events", { searchTerm: searchTerm }],
     queryFn: ({ signal }) => fetchEvents({ searchTerm, signal }),
     enabled: searchTerm !== undefined,
@@ -25,7 +25,7 @@ export default function FindEventSection() {
 
   let content = <p>Please enter a search term and to find events.</p>;
 
-  if (isPending) {
+  if (isLoading) {
     content = <LoadingIndicator />;
   }
   if (isError) {
