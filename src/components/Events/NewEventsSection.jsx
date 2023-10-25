@@ -27,7 +27,7 @@ export default function NewEventsSection() {
     );
   }
 
-  if (data) {
+  if ( data) {
     content = (
       <ul className="events-list">
         {data.map((event) => (
