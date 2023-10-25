@@ -14,12 +14,17 @@ export default function NewEventsSection() {
 
   let content;
 
-  if (isLoading) {
+  if (isPending) {
     content = <LoadingIndicator />;
   }
 
-  if (error) {
-    content = <ErrorBlock title="An error occurred" message="Failed to fetch events" />;
+  if (isError) {
+    content = (
+      <ErrorBlock
+        title="An error occurred"
+        message={error.info?.message || "Failed to fetch events."}
+      />
+    );
   }
 
   if (data) {
