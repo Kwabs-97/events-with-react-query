@@ -8,7 +8,7 @@ import EventForm from "./EventForm.jsx";
 import { createNewEvent } from "../../util/http.js";
 
 export default function NewEvent() {
-  const { mutate } = useMutation({
+  const { mutate, isPending, isError, error } = useMutation({
     mutationFn: createNewEvent,
   });
   const navigate = useNavigate();
@@ -20,6 +20,7 @@ export default function NewEvent() {
   return (
     <Modal onClose={() => navigate("../")}>
       <EventForm onSubmit={handleSubmit}>
+        {isPending && "submitting"}
         <>
           <Link to="../" className="button-text">
             Cancel
