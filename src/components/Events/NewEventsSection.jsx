@@ -2,6 +2,7 @@
 import LoadingIndicator from '../UI/LoadingIndicator.jsx';
 import ErrorBlock from '../UI/ErrorBlock.jsx';
 import EventItem from './EventItem.jsx';
+import {useQuery, QueryClientProvider} from "@tanstack/react-query"
 
 export default function NewEventsSection() {
 
