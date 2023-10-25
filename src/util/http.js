@@ -48,8 +48,22 @@ export async function fetchSelectableImages({ signal }) {
     const error = new Error("Failed to fetch images");
     error.code = response.status;
     error.info = await response.json();
+    throw error;
   }
 
   const { images } = await response.json();
   return images;
+}
+
+export async function fetchEventDetails({ signal, id }) {
+  const response = await fetch(`http://localhost:3000/events/${id}`, { signal });
+  if (!response.ok) {
+    const error = new Error("Failed to fetch event details");
+    error.info = await response.json();
+    error.code = response.status;
+    throw error;
+  }
+
+  const { event } = await response.json();
+  return event;
 }

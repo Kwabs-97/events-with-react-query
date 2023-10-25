@@ -1,8 +1,17 @@
-import { Link, Outlet } from 'react-router-dom';
+/** @format */
 
-import Header from '../Header.jsx';
+import { Link, Outlet, useParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+
+import Header from "../Header.jsx";
+import { fetchEventDetails } from "../../util/http.js";
 
 export default function EventDetails() {
+  const params = useParams();
+  const { data, isPending, isError, error } = useQuery({
+    queryKey: [],
+    queryFn: () => fetchEventDetails({ signal, id: params.id }),
+  });
   return (
     <>
       <Outlet />
