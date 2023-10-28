@@ -59,7 +59,7 @@ export default function EventDetails() {
         <header>
           <h1>{data.title} </h1>
           <nav>
-            <button>Delete</button>
+            <button onClick={deleteEventHandler}>Delete</button>
             <Link to="edit">Edit</Link>
           </nav>
         </header>
