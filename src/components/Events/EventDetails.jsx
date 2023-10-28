@@ -34,7 +34,7 @@ export default function EventDetails() {
   }
 
   if (data) {
-    const formattedDate = new Date(data.date).toLocaleDateString("en US", {
+    const formattedDate = new Date(data.date).toLocaleDateString("en-US", {
       day: "numeric",
       month: "short",
       year: "numeric",
