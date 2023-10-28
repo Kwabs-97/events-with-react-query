@@ -4,7 +4,7 @@ import { Link, Outlet, useParams, useNavigate } from "react-router-dom";
 import { useQuery, useMutation } from "@tanstack/react-query";
 
 import Header from "../Header.jsx";
-import { deleteEvent, fetchEventDetails } from "../../util/http.js";
+import { deleteEvent, fetchEventDetails, queryClient } from "../../util/http.js";
 import ErrorBlock from "../UI/ErrorBlock.jsx";
 
 export default function EventDetails() {
@@ -18,6 +18,12 @@ export default function EventDetails() {
 
   const { mutate } = useMutation({
     mutationFn: deleteEvent,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ['events']
+      })
+        navigate("/");
+    }
   });
 
   function deleteEventHandler() {
@@ -26,7 +32,7 @@ export default function EventDetails() {
       mutate({ id: params.id });
     }
 
-    navigate('/')
+  
   }
 
   let content;
