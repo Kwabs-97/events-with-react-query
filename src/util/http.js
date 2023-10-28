@@ -67,3 +67,15 @@ export async function fetchEventDetails({ signal, id }) {
   const { event } = await response.json();
   return event;
 }
+
+export async function deleteEvent({ id }) {
+  const response = await fetch(`http://localhost:3000/${id}`, { method: "DELETE" });
+  if (!response.ok) {
+    const error = new Error("Error deleting event");
+    error.info = await response.json();
+    error.code = response.status;
+    throw error;
+  }
+
+  return response.json();
+}

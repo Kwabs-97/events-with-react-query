@@ -9,10 +9,14 @@ import ErrorBlock from "../UI/ErrorBlock.jsx";
 
 export default function EventDetails() {
   const params = useParams();
+
   const { data, isPending, isError, error } = useQuery({
     queryKey: ["events", params.id],
     queryFn: ({ signal }) => fetchEventDetails({ signal, id: params.id }),
   });
+
+
+  
 
   let content;
   if (isPending) {
