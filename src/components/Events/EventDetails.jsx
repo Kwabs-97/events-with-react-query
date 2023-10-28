@@ -7,6 +7,7 @@ import { useState } from "react";
 import Header from "../Header.jsx";
 import { deleteEvent, fetchEventDetails, queryClient } from "../../util/http.js";
 import ErrorBlock from "../UI/ErrorBlock.jsx";
+import Modal from "../UI/Modal.jsx";
 
 export default function EventDetails() {
   const params = useParams();
@@ -30,14 +31,13 @@ export default function EventDetails() {
     },
   });
 
-
   //function to handle starting to deletion
-  function startDelete() {
+  function startDeleteHandler() {
     setIsDeleting(true);
   }
 
   //function to handle stopping deletion
-  function stopDelete() {
+  function stopDeleteHandler() {
     setIsDeleting(false);
   }
   function deleteEventHandler() {
@@ -76,7 +76,7 @@ export default function EventDetails() {
         <header>
           <h1>{data.title} </h1>
           <nav>
-            <button onClick={deleteEventHandler}>Delete</button>
+            <button onClick={startDeleteHandler}>Delete</button>
             <Link to="edit">Edit</Link>
           </nav>
         </header>
@@ -98,6 +98,16 @@ export default function EventDetails() {
 
   return (
     <>
+      {isDeleting && (
+        <Modal onClose={stopDeleteHandler}>
+          <h2>Are you sure?</h2>
+          <p>Are you really sure you want to delete Event? Changes cannot be undone</p>
+          <div className="form-actions">
+            <button onClick={stopDeleteHandler} className="button-text">Cancel</button>
+            <button onClick={deleteEventHandler} className="button">Delete</button>
+          </div>
+        </Modal>
+      )}
       <Outlet />
       <Header>
         <Link to="/events" className="nav-item">
